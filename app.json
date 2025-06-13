@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "newexpo",
+    "name": "Proactively",
     "slug": "newexpo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/AppIcon.png",
     "scheme": "newexpo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,10 +13,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/AppIcon.png",
+        "backgroundColor": "#FFFFFF"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous.newexpo",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -25,18 +27,21 @@
     },
     "plugins": [
       "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
+      "expo-splash-screen"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "splash": {
+      "image": "./assets/images/splashIcon.png",
+      "backgroundColor": "#204CBB",
+      "resizeMode": "contain"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "76af5b72-27b2-4f40-87f0-66a7e9951647"
+      }
     }
   }
 }

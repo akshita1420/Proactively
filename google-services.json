@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1071957990488",
+    "project_id": "proactively-dca4e",
+    "storage_bucket": "proactively-dca4e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071957990488:android:ee12766f33494e12bbfe2d",
+        "android_client_info": {
+          "package_name": "com.anonymous.newexpo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1rJAvUsFVGCzkos5kcNqOvuPaXme47lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
