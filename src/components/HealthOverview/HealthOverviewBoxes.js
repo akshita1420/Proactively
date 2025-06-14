@@ -43,9 +43,15 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
   }, [navigation]);
   
   // Navigation handlers
-  const handleStepsPress = () => navigation.navigate('Steps');
-  const handleBMIPress = () => navigation.navigate('BMI');
-  const handleSleepPress = () => navigation.navigate('Sleep');
+  const handleStepsPress = () => navigation.navigate('StepScreen');
+
+  const handleBMIPress = () => {
+    navigation.navigate('bmiScreen');
+  };
+
+  const handleSleepPress = () => {
+    navigation.navigate('sleepScreen');
+  };
   
   return (
     <View style={styles.container}>
