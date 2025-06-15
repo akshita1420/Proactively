@@ -2,6 +2,10 @@
 
 This is a responsive React Native mobile application built with Expo. It is designed to help users track their health metrics, manage appointments, and maintain daily tasks, following the specifications provided in the assignment and the given Figma design.
 
+## Video Walkthrough
+https://drive.google.com/file/d/1yytFLI28O6t7Z98bBA-0eKLFsGkiOaO2/view?usp=sharing
+
+
 ## Login Credentials
 
 To access the app, use the following predefined credentials:
@@ -142,5 +146,3 @@ Potential future enhancements for the app include:
 - Special thanks to the designers and developers who contributed to the Figma assets and initial project setup.
 
 ---
-
-This README provides a comprehensive overview of the Proactive Health App, covering all essential aspects from features and installation to learnings and future enhancements.
