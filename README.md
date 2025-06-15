@@ -58,12 +58,31 @@ All data is retained across sessions to ensure a smooth user experience.
 ## Project Structure
 
 ```bash
-app/
-├── components/          # Reusable components
-├── navigation/          # Navigation configuration
-├── screens/            # All screen components
-├── assets/             # App assets (images, fonts, etc.)
-└── App.js              # Main app component
+newexpo/
+├── App.js                         # Main application entry point
+├── app.json                       # Expo configuration
+├── assets/                        # Static resources
+│   ├── fonts/
+│   └── images/
+├── android/                       # Android-specific files
+├── ios/                           # iOS-specific files
+└── src/                           # Application source code
+    ├── components/                # Reusable UI components
+    │   ├── AppointmentCard/
+    │   ├── HealthOverview/
+    │   │   └── HealthOverviewBoxes.js
+    │   ├── ProfileIcon/
+    │   └── ToDos/
+
+    └── screens/                   # Application screens
+        ├── AppointmentScreen.js
+        ├── HomeScreen.js
+        ├── LoginScreen.js
+        ├── ProfileScreen.js
+        ├── SleepScreen.js
+        ├── StepScreen.js
+        └── bmiScreen.js
+
 ```
 
 ## Installation and Setup
