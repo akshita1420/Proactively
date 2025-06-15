@@ -4,6 +4,7 @@ This is a responsive React Native mobile application built with Expo. It is desi
 
 ## Video Walkthrough
 https://drive.google.com/file/d/1yytFLI28O6t7Z98bBA-0eKLFsGkiOaO2/view?usp=sharing
+![Demo](video_walkthrough/video_walkthrough.mp4)
 
 
 ## Login Credentials
