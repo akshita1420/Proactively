@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, SafeAreaView, Dimensions, Animated, Text, LogBox, TouchableOpacity, Platform, Image } from 'react-native';
-import { StatusBar as RNStatusBar } from 'react-native'; // Add this import
+import { StatusBar as RNStatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'; // Add this import
+import { useNavigation } from '@react-navigation/native';
 
-// Ignore specific log notifications
 LogBox.ignoreLogs(['Text strings must be rendered within a <Text> component']);
 
-// Import our custom components
 import Header from '../components/Header/Header';
 import HealthScore from '../components/HealthScore/HealthScore';
 import AnimatedBanner from '../components/AnimatedBanner/AnimatedBanner';
@@ -16,10 +14,8 @@ import AppointmentCard from '../components/AppointmentCard/AppointmentCard';
 import HealthOverviewBoxes from '../components/HealthOverview/HealthOverviewBoxes';
 import ToDosSection from '../components/ToDos/ToDosSection';
 
-// Get dimensions
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
-// Helper functions for responsive sizes
 const wp = (percentage) => {
   return windowWidth * (percentage / 100);
 };
@@ -33,30 +29,24 @@ const getStatusBarHeight = () => {
 };
 
 export default function HomeScreen() {
-  const navigation = useNavigation(); // Add this hook to access navigation
+  const navigation = useNavigation();
   
-  // Health score state kept at the top level so it can be passed down to components
   const [healthScore, setHealthScore] = useState(1500);
   
-  // Add state for orientation
   const [dimensions, setDimensions] = useState({ 
     window: Dimensions.get('window') 
   });
   
-  // Create an animated scroll value
   const scrollY = useRef(new Animated.Value(0)).current;
   
-  // Define fontSize for responsive text
   const fontSize = Math.min(Math.max(dimensions.window.width * 0.045, 16), 18);
   
-  // Calculate animation values for the white box
   const whiteBoxTranslateY = scrollY.interpolate({
     inputRange: [0, 300],
     outputRange: [0, -100],
     extrapolate: 'clamp'
   });
   
-  // Handle orientation changes
   useEffect(() => {
     const subscription = Dimensions.addEventListener('change', ({ window }) => {
       setDimensions({ window });
@@ -65,14 +55,12 @@ export default function HomeScreen() {
     return () => subscription?.remove();
   }, []);
   
-  // Mock appointment data
   const appointment = {
     doctor: "Dr. Sarah Johnson",
     date: "June 15, 2023",
     time: "10:30 AM"
   };
 
-  // Add these navigation handlers
   const navigateToProfile = () => {
     navigation.navigate('Profile');
   };
@@ -81,12 +69,10 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <RNStatusBar style="light" />
       
-      {/* Fixed header */}
       <View style={styles.headerContainer}>
         <Header screenWidth={dimensions.window.width} />
       </View>
       
-      {/* Scrollable content with everything else */}
       <Animated.ScrollView 
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
@@ -95,26 +81,22 @@ export default function HomeScreen() {
           { useNativeDriver: true }
         )}
         scrollEventThrottle={16}
-        bounces={false} // Prevent bouncing at the top and bottom
-        overScrollMode="never" // Prevent overscrolling on Android
-        contentContainerStyle={{ paddingBottom: 10 }} // Reduced from 67 to 10
+        bounces={false}
+        overScrollMode="never"
+        contentContainerStyle={{ paddingBottom: 10 }}
       >
-        {/* Health Banner */}
         <View style={styles.healthBanner}>
-          {/* Health Score */}
           <HealthScore 
             score={healthScore} 
             screenWidth={dimensions.window.width}
             screenHeight={dimensions.window.height}
           />
           
-          {/* Health Banner Image Container */}
           <AnimatedBanner 
             screenWidth={dimensions.window.width}
             screenHeight={dimensions.window.height}
           />
           
-          {/* Progress Bar */}
           <ProgressBar 
             healthScore={healthScore} 
             setHealthScore={setHealthScore}
@@ -122,7 +104,6 @@ export default function HomeScreen() {
           />
         </View>
         
-        {/* White box content */}
         <Animated.View 
           style={[
             styles.whiteBox,
@@ -130,26 +111,19 @@ export default function HomeScreen() {
           ]}
         >
           <View style={styles.contentContainer}>
-            {/* Appointment Card */}
             <AppointmentCard 
               appointment={appointment}
               screenWidth={dimensions.window.width}
             />
             
-            {/* Health Overview Section */}
             <HealthOverviewBoxes screenWidth={dimensions.window.width} />
             
-            {/* To-Dos Section */}
             <ToDosSection screenWidth={dimensions.window.width} />
             
-            {/* Add reasonable padding at the bottom for better scrolling experience */}
-            <View style={{ height: 20 }} /> {/* Reduced from 60 to 20 */}
+            <View style={{ height: 20 }} />
           </View>
         </Animated.View>
       </Animated.ScrollView>
-      
-      {/* Replace custom navbar with shared component */}
-      
     </SafeAreaView>
   );
 }
@@ -162,7 +136,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: hp(8),
     paddingHorizontal: wp(5),
-    paddingTop: getStatusBarHeight(), // Use dynamic status bar height instead of hp(5)
+    paddingTop: getStatusBarHeight(),
     backgroundColor: '#3D53B6',
     zIndex: 10,
   },
@@ -182,20 +156,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 1)',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    marginTop: -hp(5), // Changed from -hp(5) to -hp(8) to move it up
+    marginTop: -hp(5),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
     paddingBottom: 0,
-    minHeight: hp(80), // Add minimum height to prevent scrolling issues
+    minHeight: hp(80),
   },
   contentContainer: {
     paddingHorizontal: wp(5),
     paddingTop: wp(5),
-    paddingBottom: 40, // Increase padding to prevent scroll-beyond issues
-    minHeight: '100%', // Ensure content fills available space
+    paddingBottom: 40,
+    minHeight: '100%',
   },
   todosText: {
     color: '#FFFFFF',

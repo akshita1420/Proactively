@@ -4,20 +4,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 const AppointmentCard = ({ screenWidth = Dimensions.get('window').width }) => {
-  // Get navigation object
   const navigation = useNavigation();
   
-  // Calculate if device is small
   const isSmallDevice = screenWidth < 360;
   
-  // Calculate responsive sizes
   const cardWidth = Math.min(screenWidth * 0.9, 370);
   const imageSize = isSmallDevice ? 55 : 65;
   const nameFontSize = isSmallDevice ? 17 : 20;
   const specialtyFontSize = isSmallDevice ? 13 : 15;
   const dateFontSize = isSmallDevice ? 13 : 15;
   
-  // Handle card press
   const handlePress = () => {
     navigation.navigate('AppointmentScreen');
   };
@@ -29,21 +25,16 @@ const AppointmentCard = ({ screenWidth = Dimensions.get('window').width }) => {
         onPress={handlePress}
         activeOpacity={0.7}
       >
-        {/* Arrow header icon in top right */}
         <View style={styles.arrowContainer}>
           <Ionicons name="chevron-forward" size={24} color="rgba(145, 145, 145, 1)" />
         </View>
         
-        {/* UPCOMING label */}
         <View style={styles.upcomingBadge}>
           <Text style={styles.upcomingText}>UPCOMING</Text>
         </View>
         
-        {/* Card content container */}
         <View style={styles.contentContainer}>
-          {/* Left side content */}
           <View style={styles.leftContent}>
-            {/* Doctor name and credentials on same line */}
             <View style={styles.nameRow}>
               <Text style={[styles.doctorName, { fontSize: nameFontSize }]}>
                 Laurie Simons
@@ -53,13 +44,11 @@ const AppointmentCard = ({ screenWidth = Dimensions.get('window').width }) => {
               </Text>
             </View>
             
-            {/* Specialty */}
             <Text style={[styles.specialty, { fontSize: specialtyFontSize }]}>
               Internal medicine
             </Text>
           </View>
           
-          {/* Right side profile image */}
           <View style={styles.profileImageContainer}>
             <Image 
               source={require('../../../assets/images/appointprofile.png')}
@@ -69,7 +58,6 @@ const AppointmentCard = ({ screenWidth = Dimensions.get('window').width }) => {
           </View>
         </View>
         
-        {/* Date and time at bottom */}
         <View style={styles.dateTimeContainer}>
           <Text style={[styles.dateTimeText, { fontSize: dateFontSize }]}>
             Thu, December 21, 2024 | 10:00 AM PST
@@ -82,19 +70,19 @@ const AppointmentCard = ({ screenWidth = Dimensions.get('window').width }) => {
 
 const styles = StyleSheet.create({
   card: {
-    height: 180, // Increased from 166 to 180
+    height: 180,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: 'rgba(236, 236, 236, 1)',
     backgroundColor: 'rgba(255, 255, 255, 1)',
-    padding: 18, // Increased from 16 to 18
+    padding: 18,
     position: 'relative',
     marginBottom: 15,
   },
   arrowContainer: {
     position: 'absolute',
-    top: 18, // Increased from 16 to 18 to match new padding
-    right: 18, // Increased from 16 to 18
+    top: 18,
+    right: 18,
     width: 24,
     height: 24,
     justifyContent: 'center',
@@ -104,9 +92,9 @@ const styles = StyleSheet.create({
   upcomingBadge: {
     position: 'absolute',
     width: 90,
-    height: 24, // Increased from 22 to 24
-    top: 18, // Increased from 16 to 18
-    left: 18, // Increased from 16 to 18
+    height: 24,
+    top: 18,
+    left: 18,
     backgroundColor: 'rgba(58, 155, 120, 1)',
     borderRadius: 2,
     borderWidth: 0.5,
@@ -127,8 +115,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 36, // Space below the UPCOMING badge
-    marginBottom: 16, // Space above the date/time
+    marginTop: 36,
+    marginBottom: 16,
   },
   leftContent: {
     flex: 1,
@@ -144,37 +132,36 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '700',
     lineHeight: 24,
-    letterSpacing: -0.18, // -1% letter spacing
+    letterSpacing: -0.18,
     color: 'rgba(0, 0, 0, 1)',
-    flexShrink: 1, // Allows text to shrink if needed
+    flexShrink: 1,
   },
   credentials: {
     marginLeft: 4,
     fontFamily: 'Inter',
     fontWeight: '400',
     color: 'rgba(0, 0, 0, 0.7)',
-    flexShrink: 0, // Prevents this from shrinking
+    flexShrink: 0,
   },
   specialty: {
     fontFamily: 'Inter',
     fontWeight: '400',
-    lineHeight: 16, // Improved line height
+    lineHeight: 16,
     letterSpacing: 0,
     color: 'rgba(112, 112, 112, 1)',
   },
   profileImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 10, // Added padding to separate from text
+    paddingLeft: 10,
   },
   profileImage: {
-    // Width, height and borderRadius are set dynamically
   },
   dateTimeContainer: {
     position: 'absolute',
-    bottom: 18, // Increased from 16 to 18
-    left: 18, // Increased from 16 to 18
-    right: 18, // Increased from 16 to 18
+    bottom: 18,
+    left: 18,
+    right: 18,
   },
   dateTimeText: {
     fontFamily: 'Inter',

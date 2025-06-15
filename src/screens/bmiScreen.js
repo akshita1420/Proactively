@@ -24,7 +24,6 @@ const BMIScreen = () => {
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
   const [screenHeight, setScreenHeight] = useState(Dimensions.get('window').height);
   
-  // Listen for orientation/dimension changes
   useEffect(() => {
     const updateLayout = () => {
       setScreenWidth(Dimensions.get('window').width);
@@ -34,14 +33,12 @@ const BMIScreen = () => {
     Dimensions.addEventListener('change', updateLayout);
     
     return () => {
-      // Clean up listener on component unmount
       if (Dimensions.removeEventListener) {
         Dimensions.removeEventListener('change', updateLayout);
       }
     };
   }, []);
   
-  // Calculate responsive sizes
   const inputWidth = Math.min(screenWidth * 0.9, 335);
   const headerSpacing = screenHeight * 0.02;
   const contentTopMargin = screenHeight * 0.05;
@@ -54,12 +51,10 @@ const BMIScreen = () => {
   const handleSubmit = async () => {
     if (height && weight) {
       try {
-        // Calculate BMI - weight(kg) / (height(m))²
         const heightInMeters = parseFloat(height) / 100;
         const weightInKg = parseFloat(weight);
         const bmi = (weightInKg / (heightInMeters * heightInMeters)).toFixed(1);
         
-        // Store BMI data
         await AsyncStorage.setItem('bmiData', JSON.stringify({
           height,
           weight,
@@ -79,7 +74,6 @@ const BMIScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
       
-      {/* Header with back button and title */}
       <View style={styles.headerContainer}>
         <View style={styles.header}>
           <View style={styles.leftSection}>
@@ -107,7 +101,6 @@ const BMIScreen = () => {
             { marginTop: contentTopMargin }
           ]}>
             <View style={styles.inputSection}>
-              {/* Height Input */}
               <Text style={[
                 styles.inputLabel,
                 { 
@@ -154,7 +147,6 @@ const BMIScreen = () => {
                 ) : null}
               </View>
               
-              {/* Weight Input */}
               <Text style={[
                 styles.inputLabel,
                 { 
@@ -201,7 +193,6 @@ const BMIScreen = () => {
                 ) : null}
               </View>
               
-              {/* Submit button */}
               <TouchableOpacity 
                 style={[
                   styles.submitButton,

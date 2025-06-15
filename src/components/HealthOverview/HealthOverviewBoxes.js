@@ -4,29 +4,31 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+
+
 const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
   const [stepsData, setStepsData] = useState(null);
   const [bmiData, setBmiData] = useState(null);
   const [sleepData, setSleepData] = useState(null);
   const navigation = useNavigation();
   
-  // Calculate responsive sizes
   const fontSize = Math.min(Math.max(screenWidth * 0.045, 16), 18);
-  const boxWidth = 155; // Fixed width instead of responsive calculation
+  const boxWidth = 155;
   
-  // Fetch health data from AsyncStorage on component mount
+
+
+
+
   useEffect(() => {
     const fetchHealthData = async () => {
       try {
-        // Get steps data
         const steps = await AsyncStorage.getItem('stepsData');
         if (steps) setStepsData(steps);
         
-        // Get BMI data
         const bmi = await AsyncStorage.getItem('bmiData');
         if (bmi) setBmiData(JSON.parse(bmi));
         
-        // Get sleep data
         const sleep = await AsyncStorage.getItem('sleepData');
         if (sleep) setSleepData(JSON.parse(sleep));
         
@@ -35,23 +37,24 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
       }
     };
     
+    
+
+
+
+
     fetchHealthData();
     
-    // Refetch when screen is focused
     const unsubscribe = navigation.addListener('focus', fetchHealthData);
     return unsubscribe;
   }, [navigation]);
   
-  // Navigation handlers
   const handleStepsPress = () => navigation.navigate('StepScreen');
+  const handleBMIPress = () => navigation.navigate('bmiScreen');
+  const handleSleepPress = () => navigation.navigate('sleepScreen');
+  
 
-  const handleBMIPress = () => {
-    navigation.navigate('bmiScreen');
-  };
 
-  const handleSleepPress = () => {
-    navigation.navigate('sleepScreen');
-  };
+
   
   return (
     <View style={styles.container}>
@@ -65,7 +68,6 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
         contentContainerStyle={styles.boxesContainer}
         style={{ width: '100%' }}
       >
-        {/* Box 1 - Light blue - Steps */}
         <TouchableOpacity 
           style={[
             styles.colorBox, 
@@ -86,7 +88,6 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
             style={styles.arrowIcon}
           />
           
-          {/* Content for box 1 - Steps */}
           {stepsData ? (
             <>
               <Text style={[styles.updatedText, { color: 'rgba(79, 101, 203, 1)' }]}>
@@ -118,7 +119,11 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
           )}
         </TouchableOpacity>
         
-        {/* Box 2 - Light yellow - BMI */}
+
+
+
+
+        
         <TouchableOpacity 
           style={[
             styles.colorBox, 
@@ -139,7 +144,6 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
             style={styles.arrowIcon}
           />
           
-          {/* Content for box 2 - BMI with kg/m² */}
           {bmiData ? (
             <>
               <Text style={[styles.updatedText, { color: 'rgba(123, 132, 0, 1)' }]}>
@@ -177,7 +181,6 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
           )}
         </TouchableOpacity>
         
-        {/* Box 3 - Light orange - Sleep */}
         <TouchableOpacity 
           style={[
             styles.colorBox, 
@@ -198,7 +201,6 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
             style={styles.arrowIcon}
           />
           
-          {/* Content for box 3 - Sleep with hours */}
           {sleepData ? (
             <>
               <Text style={[styles.updatedText, { color: 'rgba(178, 117, 0, 1)' }]}>
@@ -242,7 +244,6 @@ const HealthOverviewBoxes = ({ screenWidth = 375 }) => {
   );
 };
 
-// Styles
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -262,8 +263,8 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   colorBox: {
-    width: 155, // Fixed width
-    height: 129, // Fixed height
+    width: 155,
+    height: 129,
     borderRadius: 12,
     marginRight: 12,
     padding: 12,

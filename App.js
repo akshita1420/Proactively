@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -18,7 +18,7 @@ import ProfileScreen from './src/screens/ProfileScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Create the tab navigator
+//tab navigator
 function TabNavigator() {
   return (
     <Tab.Navigator
@@ -41,13 +41,10 @@ function TabNavigator() {
           fontFamily: 'Inter',
           fontWeight: '500',
         },
-        // Keep these basic tab bar options
+        // basic tab bar options
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: 'rgba(97, 86, 178, 1)',
         tabBarInactiveTintColor: 'rgba(112, 112, 112, 1)',
-        // Remove the problematic animation settings
-        // cardStyleInterpolator: forFade,
-        // transitionSpec: {...}
       }}
     >
       <Tab.Screen 
@@ -86,7 +83,7 @@ function TabNavigator() {
   );
 }
 
-// Root navigator for all screens
+// Root navigator 
 function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName="Login">

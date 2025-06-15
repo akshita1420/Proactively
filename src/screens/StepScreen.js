@@ -23,7 +23,6 @@ const StepScreen = () => {
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
   const [screenHeight, setScreenHeight] = useState(Dimensions.get('window').height);
   
-  // Listen for orientation/dimension changes
   useEffect(() => {
     const updateLayout = () => {
       setScreenWidth(Dimensions.get('window').width);
@@ -33,17 +32,15 @@ const StepScreen = () => {
     Dimensions.addEventListener('change', updateLayout);
     
     return () => {
-      // Clean up listener on component unmount
       if (Dimensions.removeEventListener) {
         Dimensions.removeEventListener('change', updateLayout);
       }
     };
   }, []);
   
-  // Calculate responsive sizes
   const inputWidth = Math.min(screenWidth * 0.9, 335);
   const headerSpacing = screenHeight * 0.04;
-  const contentTopMargin = screenHeight * 0.1; // Changed to positive value to keep content below header
+  const contentTopMargin = screenHeight * 0.1;
   const isSmallDevice = screenWidth < 360;
   
   const handleGoBack = () => {
@@ -53,11 +50,9 @@ const StepScreen = () => {
   const handleSubmit = async () => {
     if (stepCount) {
       try {
-        // Store the step count value
         await AsyncStorage.setItem('stepsData', stepCount);
         console.log('Step count submitted:', stepCount);
         
-        // Navigate back to the main screen
         navigation.goBack();
       } catch (error) {
         console.error('Error saving steps data:', error);
@@ -69,7 +64,6 @@ const StepScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
       
-      {/* Header with back button and title */}
       <View style={styles.headerContainer}>
         <View style={styles.header}>
           <View style={styles.leftSection}>
@@ -83,7 +77,6 @@ const StepScreen = () => {
             <Text style={styles.headerTitle}>Steps Entry</Text>
           </View>
           
-          {/* Empty space to balance layout */}
           <View style={{ width: 40 }} />
         </View>
       </View>
@@ -93,7 +86,6 @@ const StepScreen = () => {
         style={styles.keyboardAvoidContainer}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          {/* Step count input section - with responsive positioning */}
           <View style={[
             styles.contentContainer, 
             { 
@@ -111,7 +103,6 @@ const StepScreen = () => {
                 Steps Count:
               </Text>
               
-              {/* Input box with custom input display - responsive width */}
               <View style={[
                 styles.inputBox, 
                 { 
@@ -148,7 +139,6 @@ const StepScreen = () => {
                 ) : null}
               </View>
               
-              {/* Submit button - responsive width */}
               <TouchableOpacity 
                 style={[
                   styles.submitButton,
@@ -212,7 +202,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: 'flex-start', // Changed from center to flex-start
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   inputSection: {

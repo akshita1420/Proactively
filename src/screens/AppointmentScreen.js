@@ -9,14 +9,13 @@ import {
   Image, 
   ScrollView,
   Dimensions,
-  Linking // Import Linking API
+  Linking
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 
 const AppointmentScreen = () => {
-  // Get screen dimensions and handle orientation changes
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   
   useEffect(() => {
@@ -36,24 +35,19 @@ const AppointmentScreen = () => {
     navigation.goBack();
   };
   
-  // Update the handler to open the meeting link
   const handleJoinMeeting = async () => {
     const meetingLink = "https://www.meet.google.com/abc-defa-dwa";
     
     try {
-      // Check if the URL can be opened
       const canOpen = await Linking.canOpenURL(meetingLink);
       
       if (canOpen) {
-        // Open the URL in the browser or appropriate app
         await Linking.openURL(meetingLink);
       } else {
         console.log("Cannot open URL: " + meetingLink);
-        // You could show an alert here to inform the user
       }
     } catch (error) {
       console.error("An error occurred while opening the meeting link:", error);
-      // Handle errors appropriately
     }
   };
   
@@ -62,7 +56,6 @@ const AppointmentScreen = () => {
       <StatusBar style="dark" />
       
       <View style={styles.container}>
-        {/* Header with responsive padding */}
         <View style={[
           styles.headerContainer, 
           { paddingTop: isLandscape ? 10 : Platform.OS === 'ios' ? 40 : 20 }
@@ -85,7 +78,6 @@ const AppointmentScreen = () => {
           </View>
         </View>
         
-        {/* Main content in ScrollView */}
         <View style={styles.mainContentWrapper}>
           <ScrollView 
             style={styles.scrollView}
@@ -95,7 +87,6 @@ const AppointmentScreen = () => {
               styles.content, 
               { padding: isSmallDevice ? 15 : 20 }
             ]}>
-              {/* Status badge - "UPCOMING" */}
               <View style={[
                 styles.statusContainer, 
                 { marginBottom: isLandscape ? 15 : 30 }
@@ -105,7 +96,6 @@ const AppointmentScreen = () => {
                 </View>
               </View>
               
-              {/* Doctor Profile Image */}
               <View style={[
                 styles.profileContainer,
                 { marginBottom: isSmallDevice ? 16 : 24 }
@@ -124,7 +114,6 @@ const AppointmentScreen = () => {
                 />
               </View>
               
-              {/* Appointment text */}
               <Text style={[
                 styles.appointmentText,
                 { 
@@ -135,7 +124,6 @@ const AppointmentScreen = () => {
                 Your upcoming appointment with
               </Text>
               
-              {/* Doctor name */}
               <Text style={[
                 styles.doctorName,
                 { 
@@ -146,15 +134,12 @@ const AppointmentScreen = () => {
                 Laurie Simons, MD, DipABLM
               </Text>
               
-              {/* Spacing */}
               <View style={{ height: isLandscape ? 15 : 30 }} />
               
-              {/* APPOINTMENT badge */}
               <View style={styles.appointmentBadge}>
                 <Text style={styles.appointmentBadgeText}>Appointment</Text>
               </View>
               
-              {/* Date and time */}
               <Text style={[
                 styles.dateTimeText,
                 { 
@@ -165,15 +150,13 @@ const AppointmentScreen = () => {
                 Thu, December 21, 2024 | 10:00 AM PST
               </Text>
               
-              {/* Separator line */}
               <View style={styles.separator} />
               
-              {/* Meeting info section */}
               <View style={styles.meetingInfoContainer}>
                 <Text style={[
                   styles.meetingLinkTitle,
                   { 
-                    fontWeight: '700', // Changed from 600 to 700 for thicker text
+                    fontWeight: '700',
                     fontSize: isSmallDevice ? 16 : 18,
                     lineHeight: isSmallDevice ? 20 : 22,
                   }
@@ -192,12 +175,10 @@ const AppointmentScreen = () => {
                 </Text>
               </View>
               
-              {/* Extra space to ensure scrolling works properly with the fixed button */}
               <View style={{ height: isSmallDevice ? 80 : 100 }} />
             </View>
           </ScrollView>
           
-          {/* Button fixed to bottom of screen but above the absolute bottom */}
           <View style={[
             styles.buttonContainer,
             { 
@@ -239,7 +220,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    // paddingTop handled dynamically
   },
   header: {
     flexDirection: 'row',
@@ -303,11 +283,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    // Dimensions handled dynamically
   },
   appointmentText: {
     fontFamily: 'Inter',
-    fontWeight: '700', // Increased from 600 to 700 for thicker text
+    fontWeight: '700',
     letterSpacing: 0,
     color: 'rgba(0, 0, 0, 1)',
     textAlign: 'center',
@@ -320,7 +299,7 @@ const styles = StyleSheet.create({
     color: 'rgba(112, 112, 112, 1)',
   },
   appointmentBadge: {
-    width: 120, // Increased from 100 to give more space for text
+    width: 120,
     height: 30,
     backgroundColor: 'rgba(122, 61, 182, 0.1)',
     borderRadius: 4,
@@ -330,7 +309,7 @@ const styles = StyleSheet.create({
   },
   appointmentBadgeText: {
     fontFamily: 'Inter',
-    fontWeight: '700', // Increased from 600 to 700 for thicker text
+    fontWeight: '700',
     fontSize: 13,
     lineHeight: 16,
     textAlign: 'center',
@@ -342,8 +321,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     textAlign: 'center',
     color: 'rgba(112, 112, 112, 1)',
-    marginBottom: 30, // Increased from 20 to 30 to move separator line lower
-    marginTop: 5, // Space above date/time
+    marginBottom: 30,
+    marginTop: 5,
   },
   separator: {
     height: 1,
@@ -357,7 +336,7 @@ const styles = StyleSheet.create({
   },
   meetingLinkTitle: {
     fontFamily: 'Inter',
-    fontWeight: '700', // Increased from 600 to 700 for thicker text
+    fontWeight: '700',
     color: 'rgba(0, 0, 0, 1)',
     letterSpacing: 0,
   },
@@ -390,7 +369,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   joinButtonIcon: {
-    transform: [{ rotate: '-45deg' }] // Changed from 45deg to -45deg to point northeast
+    transform: [{ rotate: '-45deg' }]
   }
 });
 

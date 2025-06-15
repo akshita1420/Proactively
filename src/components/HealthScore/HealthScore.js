@@ -2,14 +2,20 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const HealthScore = ({ score, screenWidth = 375, screenHeight = 812 }) => {
-  // Calculate responsive sizes
-  const containerWidth = screenWidth * 0.75; // 75% of screen width
+
+
+
+
+  const containerWidth = screenWidth * 0.75; 
   const fontSize = {
     title: Math.min(Math.max(screenWidth * 0.04, 14), 18),
     score: Math.min(Math.max(screenWidth * 0.1, 36), 48),
     disclaimer: Math.min(Math.max(screenWidth * 0.035, 12), 16)
   };
+ 
   
+
+
   return (
     <View style={[styles.healthScoreContainer, { width: containerWidth }]}>
       <Text style={[styles.healthScoreText, { fontSize: fontSize.title }]}>
@@ -27,10 +33,13 @@ const HealthScore = ({ score, screenWidth = 375, screenHeight = 812 }) => {
   );
 };
 
+
+
+
 const styles = StyleSheet.create({
   healthScoreContainer: {
     height: 130,
-    marginTop: 10, // Keeping this the same
+    marginTop: 10, 
     marginBottom: 5,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
@@ -51,7 +60,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
     color: 'white',
     textAlign: 'left',
-    marginTop: 45, // Increased from 35 to 45 to move the score down
+    marginTop: 45, 
   },
   disclaimerText: {
     fontFamily: 'Inter',

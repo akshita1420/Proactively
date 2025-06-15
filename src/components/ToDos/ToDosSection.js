@@ -10,16 +10,12 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// Make sure the component returns properly wrapped JSX
 const ToDosSection = ({ screenWidth = 375 }) => {
-  // Calculate responsive sizes
   const fontSize = Math.min(Math.max(screenWidth * 0.045, 16), 18);
   const cardWidth = Math.min(screenWidth * 0.9, 335);
   
-  // Create an animated value for the progress width
   const animatedWidth = useRef(new Animated.Value(0)).current;
   
-  // Initial todos state with 4 predefined todos
   const initialTodos = [
     { 
       id: 1, 
@@ -51,33 +47,30 @@ const ToDosSection = ({ screenWidth = 375 }) => {
     },
   ];
   
-  // State to track todos and added todo count
   const [todos, setTodos] = useState(initialTodos);
   const [addedTodos, setAddedTodos] = useState(0);
   const [isAddingTodo, setIsAddingTodo] = useState(false);
   const [newTodoText, setNewTodoText] = useState('');
   
-  // Calculate completed tasks
   const completedTasks = todos.filter(todo => todo.completed).length;
   const completionPercentage = (completedTasks / todos.length) * 100;
   
-  // Animate progress bar on mount and when progress changes
+  // Animate progress
   useEffect(() => {
     Animated.timing(animatedWidth, {
       toValue: completionPercentage,
-      duration: 500, // Changed from 1000 to 500 for faster animation
+      duration: 500,
       useNativeDriver: false
     }).start();
   }, [completionPercentage]);
   
-  // Toggle todo completion status
+  // Toggle completion
   const toggleTodo = (id) => {
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
   
-  // Handle adding a new todo
   const handleAddTodo = () => {
     if (addedTodos >= 2) {
       Alert.alert(
@@ -88,11 +81,9 @@ const ToDosSection = ({ screenWidth = 375 }) => {
       return;
     }
     
-    // Show the add todo form
     setIsAddingTodo(true);
   };
   
-  // Handle submitting a new todo
   const submitNewTodo = () => {
     if (!newTodoText.trim()) {
       setIsAddingTodo(false);
@@ -117,7 +108,6 @@ const ToDosSection = ({ screenWidth = 375 }) => {
     setIsAddingTodo(false);
   };
   
-  // Cancel adding new todo
   const cancelAddTodo = () => {
     setIsAddingTodo(false);
     setNewTodoText('');
@@ -362,7 +352,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(153, 153, 153, 1)',
   },
-  // New styles for adding todos
   addTodoCard: {
     flexDirection: 'column',
     padding: 16,

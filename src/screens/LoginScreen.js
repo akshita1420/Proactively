@@ -18,13 +18,11 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
-  // Get screen dimensions
   const [dimensions, setDimensions] = useState({
     window: Dimensions.get('window'),
     screen: Dimensions.get('screen')
   });
 
-  // Update dimensions when screen size changes (rotation, etc.)
   useEffect(() => {
     const subscription = Dimensions.addEventListener('change', ({ window, screen }) => {
       setDimensions({ window, screen });
@@ -32,7 +30,6 @@ export default function LoginScreen({ navigation }) {
     return () => subscription?.remove();
   }, []);
 
-  // Calculate responsive sizes
   const isSmallScreen = dimensions.window.height < 700;
   const isLandscape = dimensions.window.width > dimensions.window.height;
 
@@ -43,19 +40,16 @@ export default function LoginScreen({ navigation }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check for stored credentials on component mount
   useEffect(() => {
     checkLoggedInStatus();
   }, []);
 
-  // Function to check if user is already logged in
   const checkLoggedInStatus = async () => {
     try {
       const userToken = await AsyncStorage.getItem('userToken');
       
-      // If there's a stored token, navigate directly to Main (not Home)
       if (userToken) {
-        navigation.replace('Main'); // Changed from 'Home' to 'Main'
+        navigation.replace('Main');
       }
       setIsLoading(false);
     } catch (error) {
@@ -64,23 +58,17 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
-  // Handle login with credential validation
   const handleLogin = async () => {
-    // Basic validation
     if (!email || !password) {
       Alert.alert('Login Failed', 'Please enter both email and password');
       return;
     }
 
-    // Here you would typically validate against an API
-    // For this example, we'll use predefined credentials
     if (email === 'ethanharkinson@outlook.com' && password === 'password123') {
       try {
-        // Store credentials
         await AsyncStorage.setItem('userToken', 'sample-auth-token');
         await AsyncStorage.setItem('userEmail', email);
         
-        // Navigate to Home screen
         navigation.reset({
           index: 0,
           routes: [{ name: 'Main' }],
@@ -94,7 +82,6 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
-  // Show loading screen while checking login status
   if (isLoading) {
     return (
       <View style={[styles.container, styles.centered]}>
@@ -221,21 +208,21 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'center', // Keep centered for responsiveness
-    paddingVertical: 10, // Reduced from 20 to 10
+    justifyContent: 'center',
+    paddingVertical: 10,
   },
   landscapeContainer: {
     paddingHorizontal: '15%',
   },
   headerContainer: {
     paddingHorizontal: 30,
-    marginBottom: 60, // Reduced from 80 to 60
-    marginTop: -10, // Added small negative margin to move up
-    paddingTop: 40, // Reduced from 50 to 40
+    marginBottom: 60,
+    marginTop: -10,
+    paddingTop: 40,
   },
   headerContainerSmall: {
-    marginBottom: 35, // Reduced from 40 to 35
-    paddingTop: 25, // Reduced from 30 to 25
+    marginBottom: 35,
+    paddingTop: 25,
   },
   headerContainerLandscape: {
     paddingTop: 20,

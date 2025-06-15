@@ -6,7 +6,6 @@ const BottomNavbar = () => {
   const navigation = useNavigation();
   const route = useRoute();
   
-  // Check which screen is active
   const isHomeActive = route.name === 'Home';
   const isProfileActive = route.name === 'Profile';
 
@@ -48,7 +47,6 @@ const BottomNavbar = () => {
         </TouchableOpacity>
       </View>
       
-      {/* Add safe area padding for notch devices */}
       <View style={{ height: Platform.OS === 'ios' ? 20 : 0 }} />
     </View>
   );
@@ -73,25 +71,25 @@ const styles = StyleSheet.create({
   },
   navbarContent: {
     flexDirection: 'row',
-    height: 80, // Match the navbar height
+    height: 80,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    paddingHorizontal: 30, // Reduced from 40
+    paddingHorizontal: 30,
   },
   navItem: {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    paddingVertical: 10, // Reduced from 12
+    paddingVertical: 10,
   },
   navIcon: {
-    width: 22, // Reduced from 24
-    height: 22, // Reduced from 24
-    marginBottom: 5, // Reduced from 6
+    width: 22,
+    height: 22,
+    marginBottom: 5,
   },
   navText: {
-    fontSize: 13, // Reduced from 14
-    marginTop: 3, // Reduced from 4
+    fontSize: 13,
+    marginTop: 3,
     fontFamily: 'Inter',
     fontWeight: '500',
   }

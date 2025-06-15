@@ -2,15 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Image, StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   
-  // Enhanced function to handle logout with credential clearing
   const handleLogout = async () => {
     try {
-      // Show confirmation dialog
       Alert.alert(
         "Confirm Logout",
         "Are you sure you want to log out?",
@@ -23,7 +21,6 @@ const ProfileScreen = () => {
             text: "Log Out",
             onPress: async () => {
               try {
-                // Clear all stored user credentials
                 await AsyncStorage.removeItem('userToken');
                 await AsyncStorage.removeItem('userEmail');
                 await AsyncStorage.removeItem('userId');
@@ -31,7 +28,6 @@ const ProfileScreen = () => {
                 
                 console.log('Successfully cleared user credentials');
                 
-                // Navigate to Login screen
                 navigation.reset({
                   index: 0,
                   routes: [{ name: 'Login' }],
@@ -56,25 +52,20 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       
-      {/* Spacer to push content down */}
       <View style={styles.topSpacer} />
       
-      {/* Profile Header - Moved lower and made bigger */}
       <View style={styles.profileHeader}>
-        {/* Profile Photo - Larger size */}
         <Image 
           source={require('../../assets/images/profile.png')}
           style={styles.profilePhoto}
         />
         
-        {/* User Info */}
         <View style={styles.userInfo}>
           <Text style={styles.userName}>Ethan Harkinson</Text>
           <Text style={styles.userEmail}>ethanharkinson@outlook.com</Text>
         </View>
       </View>
       
-      {/* Account Section */}
       <View style={styles.sectionContainer}>
         <View style={styles.sectionHeader}>
           <Image 
@@ -84,29 +75,23 @@ const ProfileScreen = () => {
           <Text style={styles.sectionTitle}>Account</Text>
         </View>
         
-        {/* Separator Line */}
         <View style={styles.separator} />
       </View>
       
-      {/* Log Out Button - Added onPress handler */}
       <TouchableOpacity 
         style={styles.logoutContainer}
         onPress={handleLogout}
-        activeOpacity={0.6} // Add visual feedback on press
+        activeOpacity={0.6}
       >
         <View style={styles.logoutButtonContent}>
-          {/* Removed the Ionicons logout icon */}
           <Text style={styles.logoutText}>Log out</Text>
         </View>
         <Ionicons name="chevron-forward" size={19} color="rgba(253, 116, 104, 1)" />
       </TouchableOpacity>
       
-      {/* Main Content */}
       <View style={styles.content}>
-        {/* Empty space */}
       </View>
       
-      {/* Version Text */}
       <Text style={styles.versionText}>Proactively version 0.0.1</Text>
     </SafeAreaView>
   );
@@ -138,7 +123,7 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontFamily: 'Inter',
-    fontWeight: '700', // Changed to bold
+    fontWeight: '700',
     fontSize: 22,
     lineHeight: 22,
     letterSpacing: -0.22,
@@ -163,7 +148,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontFamily: 'Inter',
     fontSize: 19,
-    fontWeight: '700', // Changed to bold
+    fontWeight: '700',
     color: 'rgba(0, 0, 0, 1)',
     marginLeft: 10,
   },
@@ -183,8 +168,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 22,
-    marginTop: 20, // Changed from 30 to 20 to move it higher
-    height: 48, // Fixed height for better touch target
+    marginTop: 20,
+    height: 48,
   },
   logoutButtonContent: {
     flexDirection: 'row',
@@ -195,7 +180,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '500',
     color: 'rgba(253, 116, 104, 1)',
-    // Removed marginLeft since there's no icon anymore
   },
   content: {
     flex: 1,

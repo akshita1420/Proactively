@@ -3,22 +3,18 @@ import { View, StyleSheet, Image, Text, Animated, Dimensions } from 'react-nativ
 import { LinearGradient } from 'expo-linear-gradient';
 import * as SplashScreen from 'expo-splash-screen';
 
-// Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 const CustomSplashScreen = ({ onFinish }) => {
-  // Get screen dimensions
   const [dimensions, setDimensions] = useState({
     window: Dimensions.get('window'),
     screen: Dimensions.get('screen'),
   });
 
-  // Create animated values for our elements
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.8)).current;
   const textOpacity = useRef(new Animated.Value(0)).current;
 
-  // Update dimensions when orientation changes
   useEffect(() => {
     const subscription = Dimensions.addEventListener('change', ({ window, screen }) => {
       setDimensions({ window, screen });
@@ -28,17 +24,13 @@ const CustomSplashScreen = ({ onFinish }) => {
   }, []);
 
   useEffect(() => {
-    // This function will ensure proper timing
     const hideSplash = async () => {
       try {
         console.log("Custom splash screen mounted");
         
-        // First hide the native splash screen so our custom one becomes visible
         await SplashScreen.hideAsync();
         
-        // Start the logo animation
         Animated.sequence([
-          // First, fade in and scale up the logo
           Animated.parallel([
             Animated.timing(logoOpacity, {
               toValue: 1,
@@ -53,7 +45,6 @@ const CustomSplashScreen = ({ onFinish }) => {
             }),
           ]),
           
-          // Then, fade in the text after a slight delay
           Animated.timing(textOpacity, {
             toValue: 1,
             duration: 600,
@@ -62,10 +53,8 @@ const CustomSplashScreen = ({ onFinish }) => {
           }),
         ]).start();
         
-        // Then wait before transitioning to the main app
         await new Promise(resolve => setTimeout(resolve, 2500));
         
-        // Fade out everything before moving on
         Animated.parallel([
           Animated.timing(logoOpacity, {
             toValue: 0,
@@ -91,11 +80,9 @@ const CustomSplashScreen = ({ onFinish }) => {
     hideSplash();
   }, [logoOpacity, logoScale, textOpacity, onFinish]);
 
-  // Calculate responsive sizes
   const logoSize = Math.min(dimensions.window.width, dimensions.window.height) * 0.2;
   const fontSize = dimensions.window.width * 0.045;
-  // Reduce the bottomPadding to move text up
-  const bottomPadding = dimensions.window.height * 0.08; // Changed from 0.05 to 0.08
+  const bottomPadding = dimensions.window.height * 0.08;
 
   return (
     <View style={styles.container}>
@@ -107,9 +94,7 @@ const CustomSplashScreen = ({ onFinish }) => {
         angle={152}
         style={styles.background}
       >
-        {/* Center container for better vertical positioning */}
         <View style={styles.centerContainer}>
-          {/* Animated logo with responsive sizing */}
           <Animated.View
             style={{
               opacity: logoOpacity,
@@ -122,7 +107,7 @@ const CustomSplashScreen = ({ onFinish }) => {
                 styles.logo,
                 {
                   width: logoSize,
-                  height: logoSize * (90/94), // Maintain aspect ratio
+                  height: logoSize * (90/94),
                 }
               ]}
               resizeMode="contain"
@@ -130,7 +115,6 @@ const CustomSplashScreen = ({ onFinish }) => {
           </Animated.View>
         </View>
         
-        {/* Animated "Powered by Proactively" text with responsive sizing */}
         <Animated.Text
           style={[
             styles.poweredByText,
@@ -140,7 +124,7 @@ const CustomSplashScreen = ({ onFinish }) => {
               lineHeight: fontSize,
               letterSpacing: -fontSize * 0.02,
               bottom: bottomPadding,
-              marginTop: 20, // Added margin to help push text up
+              marginTop: 20,
             }
           ]}
         >
@@ -161,7 +145,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    // Base style - dimensions will be overridden with calculated values
   },
   poweredByText: {
     fontFamily: 'Inter',
@@ -169,8 +152,6 @@ const styles = StyleSheet.create({
     color: 'white',
     position: 'absolute',
     textAlign: 'center',
-    // Font size, line height, letter spacing, and bottom position 
-    // will be set dynamically based on screen size
   },
   centerContainer: {
     flex: 1,
